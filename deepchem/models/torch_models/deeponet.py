@@ -79,17 +79,3 @@ class DeepONetModel(TorchModel):
                 labels = [torch.tensor(y, dtype=torch.float32)]
                 weights = [torch.tensor(w, dtype=torch.float32)]
                 yield (inputs, labels, weights)
-
-    def predict_on_batch(self, X: np.ndarray) -> np.ndarray:
-        self.model.eval()
-        branch_input = X[:, :self.branch_input_dim]
-        trunk_input = X[:, self.branch_input_dim:]
-        branch_tensor = torch.tensor(branch_input,
-                                     dtype=torch.float32,
-                                     device=self.device)
-        trunk_tensor = torch.tensor(trunk_input,
-                                    dtype=torch.float32,
-                                    device=self.device)
-        with torch.no_grad():
-            output = self.model([branch_tensor, trunk_tensor])
-        return output.cpu().numpy()
