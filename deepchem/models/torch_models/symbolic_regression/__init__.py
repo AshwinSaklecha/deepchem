@@ -46,7 +46,16 @@ from .expression import (
     random_expression,
 )
 
+from .symbolic_model import SymbolicRegressionModel
+
+# Submodule imports (for advanced use)
+from . import search
+from . import optimization
+
+
 __all__ = [
+    # Model class
+    'SymbolicRegressionModel',
     # Core classes
     'Operator',
     'Arity',
@@ -83,4 +92,8 @@ __all__ = [
     'protected_exp',
     'protected_sqrt',
     'protected_pow',
+    # Submodules
+    'search',
+    'optimization',
 ]
+
