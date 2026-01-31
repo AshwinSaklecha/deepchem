@@ -350,7 +350,10 @@ class Expression:
 
     def copy(self) -> Expression:
         """Create a deep copy of this expression."""
-        return Expression(self.root.copy())
+        new_expr = Expression(self.root.copy())
+        new_expr._fitness = self._fitness
+        new_expr._error = self._error
+        return new_expr
 
     def to_string(self, var_names: Optional[List[str]] = None) -> str:
         """Convert to human-readable string."""

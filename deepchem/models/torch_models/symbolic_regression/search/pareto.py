@@ -97,9 +97,14 @@ class ParetoFront:
         )
 
         # Check if candidate is dominated by any existing entry
+        # Also check for duplicates (same error and complexity)
         for entry in self._entries:
             if entry.dominates(candidate):
                 return False  # Dominated, don't add
+            # Duplicate check: same (error, complexity) pair
+            if (abs(entry.error - error) < 1e-9 and 
+                entry.complexity == complexity):
+                return False  # Duplicate, don't add
 
         # Remove entries dominated by candidate
         self._entries = [
